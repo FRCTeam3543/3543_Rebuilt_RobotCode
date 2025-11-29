@@ -43,7 +43,7 @@ public class IntakeSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         if (isHoldingCoral()) {
-            lights.setColor(Constants.LightsConstants.Colors.RED); // Green when holding
+            lights.setColor(Constants.LightsConstants.Colors.BLUE); // Green when holding
         } else {
             lights.setColor(Constants.LightsConstants.Colors.YELLOW); // Yellow when not holding
         }

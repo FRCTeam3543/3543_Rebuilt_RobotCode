@@ -592,8 +592,8 @@ public class SwerveSubsystem extends SubsystemBase {
     Translation2d scaledInputs = SwerveMath.cubeTranslation(new Translation2d(xInput, yInput));
     return swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(),
         scaledInputs.getY(),
-        headingX,
-        headingY,
+        -headingX,
+        -headingY,
         getHeading().getRadians(),
         Constants.MAX_SPEED);
   }
