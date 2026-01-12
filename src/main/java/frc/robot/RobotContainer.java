@@ -23,11 +23,8 @@ import frc.robot.subsystems.Lights.Lights;
 import frc.robot.subsystems.Claw.IntakeSubsystem;
 import frc.robot.subsystems.Claw.RotationSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-
 import java.io.File;
-
 import com.pathplanner.lib.auto.NamedCommands;
-
 import swervelib.SwerveInputStream;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -48,10 +45,10 @@ public class RobotContainer {
         SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                         () -> Constants.OperatorConstants.driverXbox.getLeftY() * -1,
                         () -> Constants.OperatorConstants.driverXbox.getLeftX() * -1)
-                        .withControllerRotationAxis(Constants.OperatorConstants.driverXbox::getRightX)
+                        .withControllerRotationAxis(() -> Constants.OperatorConstants.driverXbox.getRightX() * -1)
                         .deadband(OperatorConstants.DEADBAND)
                         .scaleTranslation(0.8)
-                        .allianceRelativeControl(true);
+                        .allianceRelativeControl(false);
 
         SwerveInputStream driveDirectAngle = driveAngularVelocity.copy()
                         .withControllerHeadingAxis(Constants.OperatorConstants.driverXbox::getRightX,
@@ -91,7 +88,7 @@ public class RobotContainer {
 
                 configureBindings();
                 DriverStation.silenceJoystickConnectionWarning(true);
-
+                
                 rotationSubsystem.setDefaultCommand(new RotationCommand(rotationSubsystem));
                 intakeSubsystem.setDefaultCommand(new IntakeCommand(intakeSubsystem));
                 elevatorSubsystem.setDefaultCommand(new ElevatorCommand(elevatorSubsystem));
@@ -119,7 +116,7 @@ public class RobotContainer {
                 if (RobotBase.isSimulation()) {
                         drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
                 } else {
-                        drivebase.setDefaultCommand(driveRobotOrientedAngularVelocity);
+                        drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
                 }
 
         }
