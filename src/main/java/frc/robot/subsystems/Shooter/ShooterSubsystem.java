@@ -30,10 +30,13 @@ public class ShooterSubsystem extends SubsystemBase {
     private static final int shooterID = 12;
     private static final int intakeID = 11;
     private static final int indexID = 10;
-    private SparkMax shooterMotorAngle = new SparkMax( 9, MotorType.kBrushless);
-    //@Override
-    //public void periodic() {
-        //double tx = LimelightHelpers.getTX("limelight");
+    private SparkMax shooterAngleMotor = new SparkMax( 9, MotorType.kBrushless);
+    
+    @Override
+    public void periodic() {
+        // double tx = LimelightHelpers.getTX("limelight");
+        // shooterAngleMotor.set(tx * 0.055);
+
          //NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
          //double TagId = table.getEntry("tid").getDouble(0);
          //System.out.println(TagId);
@@ -41,19 +44,19 @@ public class ShooterSubsystem extends SubsystemBase {
          //if (TagId == 1) {
             //LockedOn = true;
          //}
-             //shooterMotorAngle.set(tx * 0.055);
+             //shooterAngleMotor.set(tx * 0.055);
 
-        //SmartDashboard.getNumber("../limelight/tx", 0);
         //if (Math.abs(tx) >= 16) {
-            //shooterMotorAngle.set(tx * 0.055);
+            //shooterAngleMotor.set(tx * 0.055);
         //} else if (tx >= 0) {
-            //shooterMotorAngle.set(Math.sqrt(tx));
+            //shooterAngleMotor.set(Math.sqrt(tx));
         //} else {
-            //shooterMotorAngle.set(Math.sqrt(-tx));
+            //shooterAngleMotor.set(Math.sqrt(-tx));
         //}
        
         //System.out.println(tx);
-    //}
+    }
+    
     public ShooterSubsystem() {
         shooterMotor = new SparkFlex(shooterID, MotorType.kBrushless);
         intakeMotor = new SparkMax(intakeID, MotorType.kBrushless);
@@ -69,6 +72,10 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterMotor.configure(shooterConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         intakeMotor.configure(intakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         indexerMotor.configure(indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    }
+
+    public void setShooterAngleSpeed(double speed) {
+        shooterAngleMotor.set(speed);
     }
 
     public void shoot(){
