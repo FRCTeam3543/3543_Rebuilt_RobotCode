@@ -56,8 +56,6 @@ public final class Constants
 
     public static enum LightsType {
       ENDGAME,
-      CLIMB,
-      CORAL,
       INTAKE,
       IDLE,
       DISABLED
