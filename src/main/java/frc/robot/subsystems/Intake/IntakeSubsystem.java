@@ -9,6 +9,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -23,7 +24,7 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 public void setIntakePosition (double position) {
-  intakeFrontRight.getClosedLoopController ().setSetpoint(position, ControlType.kPosition);
+  intakeFrontRight.getClosedLoopController().setSetpoint(position, ControlType.kPosition);
 }
 public void setIntakeRoller (double speed) {
   intakeRoller.set(speed);

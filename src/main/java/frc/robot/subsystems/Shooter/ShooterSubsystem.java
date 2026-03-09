@@ -14,6 +14,7 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -65,24 +66,62 @@ public class ShooterSubsystem extends SubsystemBase {
         SparkFlexConfig shooterConfig = new SparkFlexConfig();
         SparkMaxConfig intakeConfig = new SparkMaxConfig();
         SparkMaxConfig indexerConfig = new SparkMaxConfig();
+        SparkMaxConfig angleConfig = new SparkMaxConfig();
         shooterConfig.closedLoop.pid(0.0001, 0.0, 0.0);
-        shooterConfig.closedLoop.velocityFF(0.00017);
+        shooterConfig.closedLoop.velocityFF(0.000155);
+        
         intakeConfig.inverted(true);
         indexerConfig.inverted(true);
+        angleConfig.closedLoop.pid(0.15, 0.0, 0.05);
+        angleConfig.softLimit.forwardSoftLimit(0)
+                             .forwardSoftLimitEnabled(true)
+                             .reverseSoftLimit(-95.2)
+                             .reverseSoftLimitEnabled(true);
         shooterMotor.configure(shooterConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         intakeMotor.configure(intakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         indexerMotor.configure(indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        shooterAngleMotor.configure(angleConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
     public void setShooterAngleSpeed(double speed) {
         shooterAngleMotor.set(speed);
     }
 
-    public void shoot(){
-        double targetRPM = 3700;
+    public void shootLongRange(){
+        double targetRPM = 3400;
         shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity);
         intakeMotor.set(0.83);
         indexerMotor.set(0.1);
+    }
+    public void shootShortRange(){
+        double targetRPM = 2900;
+        shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity);
+        intakeMotor.set(0.83);
+        indexerMotor.set(0.1);
+    }
+
+    public void shooterON(){
+         double targetRPM = 3400;
+        shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity); 
+    }
+
+    public void shooterOFF(){
+         double targetRPM = 0;
+        shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity); 
+    }
+
+    public void indexerON(){
+        intakeMotor.set(0.83);
+        indexerMotor.set(0.1);
+    }
+
+    public void indexerOFF(){
+        intakeMotor.set(0.0);
+        indexerMotor.set(0.0);
+    }
+
+    public void setPosition(double position){
+        shooterAngleMotor.getClosedLoopController().setSetpoint(position, ControlType.kPosition);
     }
 
     public void stop(){
@@ -91,7 +130,8 @@ public class ShooterSubsystem extends SubsystemBase {
         indexerMotor.set(0);
         intakeMotor.disable();
         shooterMotor.disable();
-        indexerMotor.disable();
+    indexerMotor.disable();
+    
     }
     
 }
