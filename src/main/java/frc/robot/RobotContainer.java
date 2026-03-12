@@ -31,7 +31,6 @@ public class RobotContainer {
         private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                         "swerve/neo"));
 
-        private final Lights lights = new Lights();
         public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
         public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
         private final SendableChooser<Command> autoChooser;

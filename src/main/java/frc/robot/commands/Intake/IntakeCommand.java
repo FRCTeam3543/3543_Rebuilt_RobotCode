@@ -38,7 +38,7 @@ public class IntakeCommand extends Command {
         }
         if (RightBumper.getAsBoolean()) {
           intakeSubsystem.setIntakeRoller(1);
-          
+         
         }
   }
 

@@ -33,31 +33,6 @@ public class ShooterSubsystem extends SubsystemBase {
     private static final int indexID = 10;
     private SparkMax shooterAngleMotor = new SparkMax( 9, MotorType.kBrushless);
     
-    @Override
-    public void periodic() {
-        // double tx = LimelightHelpers.getTX("limelight");
-        // shooterAngleMotor.set(tx * 0.055);
-
-         //NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-         //double TagId = table.getEntry("tid").getDouble(0);
-         //System.out.println(TagId);
-         //boolean LockedOn;
-         //if (TagId == 1) {
-            //LockedOn = true;
-         //}
-             //shooterAngleMotor.set(tx * 0.055);
-
-        //if (Math.abs(tx) >= 16) {
-            //shooterAngleMotor.set(tx * 0.055);
-        //} else if (tx >= 0) {
-            //shooterAngleMotor.set(Math.sqrt(tx));
-        //} else {
-            //shooterAngleMotor.set(Math.sqrt(-tx));
-        //}
-       
-        //System.out.println(tx);
-    }
-    
     public ShooterSubsystem() {
         shooterMotor = new SparkFlex(shooterID, MotorType.kBrushless);
         intakeMotor = new SparkMax(intakeID, MotorType.kBrushless);
@@ -97,7 +72,7 @@ public class ShooterSubsystem extends SubsystemBase {
         double targetRPM = 2900;
         shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity);
         intakeMotor.set(0.83);
-        indexerMotor.set(0.1);
+        indexerMotor.set(1);
     }
 
     public void shooterON(){
@@ -122,6 +97,10 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public void setPosition(double position){
         shooterAngleMotor.getClosedLoopController().setSetpoint(position, ControlType.kPosition);
+    }
+    
+    public void OuttakeIndex(){
+        indexerMotor.set(-0.25);
     }
 
     public void stop(){

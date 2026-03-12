@@ -1,0 +1,61 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shooterON"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "indexerON"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shooterOFF"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "indexerOFF"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1e+21
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Stationary Path"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
