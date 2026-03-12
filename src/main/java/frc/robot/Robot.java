@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.commands.Shooter.ShooterCommand;
-import frc.robot.subsystems.Lights.Lights;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as

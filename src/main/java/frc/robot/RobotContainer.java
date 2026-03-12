@@ -18,13 +18,10 @@ import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-
 import swervelib.SwerveInputStream;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Shooter.ShooterCommand;
-import frc.robot.commands.Intake.IntakeCommand;
 
 public class RobotContainer {
 
