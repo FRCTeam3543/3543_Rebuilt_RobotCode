@@ -33,6 +33,8 @@ public class RobotContainer {
 
         public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
         public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+        public final Lights lights = new Lights();
+        private final ShooterCommand shooterCommand = new ShooterCommand(shooterSubsystem, lights);
         private final SendableChooser<Command> autoChooser;
 
         SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
@@ -86,6 +88,8 @@ public class RobotContainer {
                 SmartDashboard.putData("Auto Chooser", autoChooser);
                 configureBindings();
                 DriverStation.silenceJoystickConnectionWarning(true);
+
+                shooterSubsystem.setDefaultCommand(shooterCommand);
 
                 
         }

@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.config.PIDConstants;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -47,7 +46,7 @@ public final class Constants
 
   public static class LightsConstants {
     public static int port = 1;
-    public static int length = 100;
+    public static int length = 125;
 
 
     public static enum LightsType {

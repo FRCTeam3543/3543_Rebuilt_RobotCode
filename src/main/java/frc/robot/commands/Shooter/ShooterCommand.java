@@ -55,46 +55,45 @@ public class ShooterCommand extends Command {
         Trigger Dpad_left = Constants.OperatorConstants.operatorXbox.pov(270);
         Trigger Dpad_up = Constants.OperatorConstants.operatorXbox.pov(0);
         Trigger Dpad_right = Constants.OperatorConstants.operatorXbox.pov(90);
-
-
-
+        
         if (rightTriggerAxis > 0.2) {
             shooterSubsystem.shootLongRange();
-        }
-        else if (Rbumper.getAsBoolean()){
+        } else if (Rbumper.getAsBoolean()) {
             shooterSubsystem.shootShortRange();
-        }
-        else{
+        } else {
             shooterSubsystem.stop();
         }
+        if (Lbumper.getAsBoolean()){
+            shooterSubsystem.OuttakeIndex();
+        }
 
+        if (Dpad_left.getAsBoolean()) {
+            shooterSubsystem.setPosition(-95.2);
+            System.out.println("X pressed");
+        } else if (Dpad_up.getAsBoolean()) {
+            shooterSubsystem.setPosition(-46.0);
+            System.out.println("Y pressed");
+        } else if (Dpad_right.getAsBoolean()) {
+            shooterSubsystem.setPosition(0.0);
+            System.out.println("B pressed");
+        } else {
+            if (LimelightHelpers.getTA("limelight") > 0) {
+                lights.setColor(Constants.LightsConstants.Colors.GREEN);
 
-        
-        
-       if (Dpad_left.getAsBoolean()){
-        shooterSubsystem.setPosition(-95.2);
-        System.out.println("X pressed");
-       } 
-       else if (Dpad_up.getAsBoolean()){
-        shooterSubsystem.setPosition(-46.0);
-        System.out.println("Y pressed");
-       } 
-       else if (Dpad_right.getAsBoolean()){
-        shooterSubsystem.setPosition(0.0);
-        System.out.println("B pressed");
-       }
-       else if (LimelightHelpers.getTA("limelight") > 0){
-        lights.setColor(Constants.LightsConstants.Colors.GREEN);
-        double tx = LimelightHelpers.getTX("limelight");
-        // setpoint of 0 tells the PID controller to move the motor until tx is 0 (so the shooter is facing the tag)
-        double speed = shooterAnglePID.calculate(-tx, 0);
-        // SmartDashboard.putNumber("Shooter Angle Motor Speed", speed);
-        shooterSubsystem.setShooterAngleSpeed(speed);
-       }
-
-       if (Lbumper.getAsBoolean()) {
-        shooterSubsystem.OuttakeIndex();
-       }
+                double tx = LimelightHelpers.getTX("limelight");
+                double speed = shooterAnglePID.calculate(-tx, 0);
+                shooterSubsystem.setShooterAngleSpeed(speed);
+            } else {
+                var alliance = DriverStation.getAlliance();
+                if (alliance.isPresent()) {
+                    if (alliance.get() == Alliance.Blue) {
+                        lights.setColor(Constants.LightsConstants.Colors.BLUE);
+                    } else {
+                        lights.setColor(Constants.LightsConstants.Colors.RED);
+                    }
+                }
+            }
+        }
     }
 
     @Override

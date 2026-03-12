@@ -23,8 +23,7 @@ public class Robot extends TimedRobot
 {
 
   private static Robot   instance;
-  private Command m_autonomousCommand;
-  private static Lights lights; 
+  private Command m_autonomousCommand; 
   Timer m_gcTimer = new Timer();
   private RobotContainer m_robotContainer;
   private Timer disabledTimer;
@@ -33,6 +32,7 @@ public class Robot extends TimedRobot
   {
     instance = this;
     m_gcTimer.start();
+
   }
 
   public static Robot getInstance()
@@ -102,7 +102,6 @@ public class Robot extends TimedRobot
   @Override
   public void disabledInit()
   {
-    lights.setColor(Constants.LightsConstants.Colors.WHITE);
     m_robotContainer.setMotorBrake(true);
     disabledTimer.reset();
     disabledTimer.start();
@@ -151,7 +150,8 @@ public class Robot extends TimedRobot
   public void teleopInit()
   {
     
-    m_robotContainer.shooterSubsystem.setDefaultCommand(new ShooterCommand(m_robotContainer.shooterSubsystem, null));
+    m_robotContainer.shooterSubsystem.setDefaultCommand(
+    new ShooterCommand(m_robotContainer.shooterSubsystem, m_robotContainer.lights));
     m_robotContainer.intakeSubsystem.setDefaultCommand(new IntakeCommand(m_robotContainer.intakeSubsystem));
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
