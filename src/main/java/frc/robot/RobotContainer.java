@@ -15,6 +15,7 @@ import frc.robot.subsystems.Lights.Lights;
 import frc.robot.subsystems.Shooter.ShooterSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
+import frc.robot.Constants;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -35,35 +36,35 @@ public class RobotContainer {
         private final SendableChooser<Command> autoChooser;
 
         SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                () -> Constants.OperatorConstants.driverXbox.getLeftY() * -1,
-                () -> Constants.OperatorConstants.driverXbox.getLeftX() * -1)
-                .withControllerRotationAxis(() -> Constants.OperatorConstants.driverXbox.getRightX() * -1)
-                .deadband(OperatorConstants.DEADBAND)
-                .scaleTranslation(0.8)
-                .allianceRelativeControl(false);
+                        () -> Constants.OperatorConstants.driverXbox.getLeftY() * -1,
+                        () -> Constants.OperatorConstants.driverXbox.getLeftX() * -1)
+                        .withControllerRotationAxis(() -> Constants.OperatorConstants.driverXbox.getRightX() * -1)
+                        .deadband(OperatorConstants.DEADBAND)
+                        .scaleTranslation(0.8)
+                        .allianceRelativeControl(false);
 
         SwerveInputStream driveDirectAngle = driveAngularVelocity.copy()
-                .withControllerHeadingAxis(Constants.OperatorConstants.driverXbox::getRightX,
-                        Constants.OperatorConstants.driverXbox::getRightY)
-                .headingWhile(true);
+                        .withControllerHeadingAxis(Constants.OperatorConstants.driverXbox::getRightX,
+                                        Constants.OperatorConstants.driverXbox::getRightY)
+                        .headingWhile(true);
 
         SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
-                .allianceRelativeControl(false);
+                        .allianceRelativeControl(false);
 
         SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(drivebase.getSwerveDrive(),
                         () -> -Constants.OperatorConstants.driverXbox.getLeftY() * 1,
                         () -> -Constants.OperatorConstants.driverXbox.getLeftX() * 1)
-                .withControllerRotationAxis(() -> Constants.OperatorConstants.driverXbox.getRawAxis(2))
-                .deadband(OperatorConstants.DEADBAND)
-                .scaleTranslation(0.8)
-                .allianceRelativeControl(true);
+                        .withControllerRotationAxis(() -> Constants.OperatorConstants.driverXbox.getRawAxis(2))
+                        .deadband(OperatorConstants.DEADBAND)
+                        .scaleTranslation(0.8)
+                        .allianceRelativeControl(true);
 
         SwerveInputStream driveDirectAngleKeyboard = driveAngularVelocityKeyboard.copy()
-                .withControllerHeadingAxis(() -> Math.sin(Constants.OperatorConstants.driverXbox.getRawAxis(2)
-                                                * Math.PI) * (Math.PI * 2), 
-                                        () -> Math.cos(Constants.OperatorConstants.driverXbox.getRawAxis(2) 
-                                                * Math.PI) * (Math.PI * 2))
-                .headingWhile(true);
+                        .withControllerHeadingAxis(() -> Math.sin(Constants.OperatorConstants.driverXbox.getRawAxis(2)
+                                        * Math.PI) * (Math.PI * 2),
+                                        () -> Math.cos(Constants.OperatorConstants.driverXbox.getRawAxis(2)
+                                                        * Math.PI) * (Math.PI * 2))
+                        .headingWhile(true);
 
         public RobotContainer() {
                 NamedCommands.registerCommand("setIntakeOn",
@@ -96,7 +97,6 @@ public class RobotContainer {
 
                 shooterSubsystem.setDefaultCommand(shooterCommand);
 
-                
         }
 
         private void configureBindings() {
@@ -110,6 +110,9 @@ public class RobotContainer {
                                 .driveFieldOriented(driveAngularVelocityKeyboard);
                 Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
                                 driveDirectAngleKeyboard);
+
+                OperatorConstants.driverXbox.povDown().onTrue(Commands.runOnce(() -> drivebase.zeroGyroWithAlliance()));
+
                 /*
                  * new Trigger(() ->
                  * Constants.OperatorConstants.driverXbox.button(5).getAsBoolean() ||

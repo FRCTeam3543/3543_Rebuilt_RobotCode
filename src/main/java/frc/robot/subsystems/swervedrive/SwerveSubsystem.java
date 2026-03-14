@@ -76,7 +76,7 @@ public class SwerveSubsystem extends SubsystemBase {
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
 
     Pose2d bluePose = new Pose2d(1, 4, new Rotation2d(0));
-    Pose2d redPose = new Pose2d(1, 4, new Rotation2d(180));
+    Pose2d redPose = new Pose2d(1, 4, new Rotation2d(Math.PI));
 
     Pose2d initialPose = isRedAlliance() ? redPose : bluePose;
 
