@@ -72,6 +72,8 @@ public class RobotContainer {
                                 Commands.runOnce(() -> intakeSubsystem.setIntakeRoller(0), intakeSubsystem));
                 NamedCommands.registerCommand("rotateTurretFullLeft",
                                 Commands.runOnce(() -> shooterSubsystem.setPosition(-95.2), shooterSubsystem));
+                NamedCommands.registerCommand("zeroTurret",
+                                Commands.runOnce(() -> shooterSubsystem.setPosition(0), shooterSubsystem));
                 NamedCommands.registerCommand("shooterON",
                                 Commands.runOnce(() -> shooterSubsystem.shooterON(), shooterSubsystem));
                 NamedCommands.registerCommand("shooterOFF",
@@ -80,6 +82,12 @@ public class RobotContainer {
                                 Commands.runOnce(() -> shooterSubsystem.indexerON(), shooterSubsystem));
                 NamedCommands.registerCommand("indexerOFF",
                                 Commands.runOnce(() -> shooterSubsystem.indexerOFF(), shooterSubsystem));
+                NamedCommands.registerCommand("intakeDown",
+                                Commands.runOnce(() -> intakeSubsystem.setIntakePosition(3.5), intakeSubsystem));
+                NamedCommands.registerCommand("intakeMid",
+                                Commands.runOnce(() -> intakeSubsystem.setIntakePosition(2.9), intakeSubsystem));
+                NamedCommands.registerCommand("intakeUp",
+                                Commands.runOnce(() -> intakeSubsystem.setIntakePosition(0), intakeSubsystem));
 
                 autoChooser = AutoBuilder.buildAutoChooser("Auto Left");
                 SmartDashboard.putData("Auto Chooser", autoChooser);

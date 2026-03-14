@@ -45,7 +45,7 @@ public class ShooterCommand extends Command {
     @Override
     public void execute() {
         double rightTriggerAxis = Constants.OperatorConstants.operatorXbox.getRightTriggerAxis();
-        // Trigger Xbutton = Constants.OperatorConstants.operatorXbox.button(3);
+        Trigger Xbutton = Constants.OperatorConstants.operatorXbox.button(3);
         // Trigger Ybutton = Constants.OperatorConstants.operatorXbox.button(4);
         // Trigger Bbutton = Constants.OperatorConstants.operatorXbox.button(2);
         Trigger Lbumper = Constants.OperatorConstants.operatorXbox.button(5);
@@ -58,6 +58,8 @@ public class ShooterCommand extends Command {
             shooterSubsystem.shootLongRange();
         } else if (Rbumper.getAsBoolean()) {
             shooterSubsystem.shootShortRange();
+        } else if (Xbutton.getAsBoolean()) {
+            shooterSubsystem.shooterON();
         } else {
             shooterSubsystem.stop();
         }

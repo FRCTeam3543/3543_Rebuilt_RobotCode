@@ -74,11 +74,15 @@ public class SwerveSubsystem extends SubsystemBase {
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary
     // objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+
+    Pose2d bluePose = new Pose2d(1, 4, new Rotation2d(0));
+    Pose2d redPose = new Pose2d(1, 4, new Rotation2d(180));
+
+    Pose2d initialPose = isRedAlliance() ? redPose : bluePose;
+
     try {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,
-          new Pose2d(new Translation2d(Meter.of(1),
-              Meter.of(4)),
-              Rotation2d.fromDegrees(0)));
+          initialPose);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

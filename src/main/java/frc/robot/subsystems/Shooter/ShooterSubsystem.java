@@ -52,7 +52,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void shootLongRange(){
-        double targetRPM = 3400;
+        double targetRPM = 3450;
         shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity);
         intakeMotor.set(0.83);
         indexerMotor.set(0.1);
@@ -61,13 +61,14 @@ public class ShooterSubsystem extends SubsystemBase {
         double targetRPM = 2900;
         shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity);
         intakeMotor.set(0.83);
-        indexerMotor.set(1);
+        indexerMotor.set(0.1);
     }
 
     public void shooterON(){
-         double targetRPM = 3400;
+         double targetRPM = 3450;
         shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity); 
     }
+
 
     public void shooterOFF(){
          double targetRPM = 0;

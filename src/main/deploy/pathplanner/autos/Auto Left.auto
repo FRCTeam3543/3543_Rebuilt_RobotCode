@@ -25,7 +25,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 2.0
           }
         },
         {
@@ -43,6 +43,18 @@
         {
           "type": "named",
           "data": {
+            "name": "intakeMid"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 4.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "shooterOFF"
           }
         },
@@ -50,6 +62,18 @@
           "type": "named",
           "data": {
             "name": "indexerOFF"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "zeroTurret"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeUp"
           }
         },
         {
