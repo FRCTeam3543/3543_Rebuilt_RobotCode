@@ -5,27 +5,27 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "rotateTurretFullLeft"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
+            "pathName": "Middle Path Red"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "shooterON"
+            "name": "spinup"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "angleTurret"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.0
+            "waitTime": 0.5
           }
         },
         {
@@ -37,25 +37,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 5.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeMid"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 4.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shooterOFF"
+            "waitTime": 10.0
           }
         },
         {
@@ -67,25 +49,13 @@
         {
           "type": "named",
           "data": {
-            "name": "zeroTurret"
+            "name": "shooterOFF"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "intakeUp"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 100000000.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Stationary Path"
+            "name": "zeroTurret"
           }
         }
       ]

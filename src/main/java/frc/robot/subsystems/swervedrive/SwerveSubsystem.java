@@ -34,6 +34,8 @@ import frc.robot.Constants;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+// Part of alternate pose selection
+// import java.util.OptionalInt;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
@@ -75,10 +77,21 @@ public class SwerveSubsystem extends SubsystemBase {
     // objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
 
+    // Pose2d initialPose;
+    // OptionalInt station = DriverStation.getLocation();
+    // if (station.isPresent()) {
+    //   initialPose = Constants.STARTING_POSITIONS.get((isRedAlliance() ? 3 : 0) + station.getAsInt() - 1);
+    // } else {
+    //   initialPose = new Pose2d(1,1,isRedAlliance() ? new Rotation2d(Math.PI) : new Rotation2d(0));
+    // }
+
     Pose2d bluePose = new Pose2d(1, 4, new Rotation2d(0));
     Pose2d redPose = new Pose2d(1, 4, new Rotation2d(Math.PI));
+    Pose2d initialPose = bluePose;
 
-    Pose2d initialPose = isRedAlliance() ? redPose : bluePose;
+    if (DriverStation.isFMSAttached()) {
+      initialPose = isRedAlliance() ? redPose : bluePose;
+    }
 
     try {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,

@@ -21,10 +21,12 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-public void setIntakePosition (double position) {
-  intakeFrontRight.getClosedLoopController().setSetpoint(position, ControlType.kPosition);
-}
-public void setIntakeRoller (double speed) {
-  intakeRoller.set(speed);
-}
+
+  public void setIntakePosition (double position) {
+    intakeFrontRight.getClosedLoopController().setSetpoint(position, ControlType.kPosition);
+  }
+
+  public void setIntakeRoller (double speed) {
+    intakeRoller.set(speed);
+  }
 }

@@ -12,9 +12,11 @@ import frc.robot.subsystems.Intake.IntakeSubsystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class IntakeCommand extends Command {
   private final IntakeSubsystem intakeSubsystem;
+  private boolean isLocked = false;
+
   public IntakeCommand(IntakeSubsystem intakeSubsystem) {
-  this.intakeSubsystem = intakeSubsystem;
-  addRequirements (intakeSubsystem);
+    this.intakeSubsystem = intakeSubsystem;
+    addRequirements(intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -24,27 +26,30 @@ public class IntakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      double leftTriggerAxis = Constants.OperatorConstants.driverXbox.getLeftTriggerAxis();
-      Trigger RightBumper = Constants.OperatorConstants.operatorXbox.button(6);
-        if (leftTriggerAxis > 0.2) {
-            intakeSubsystem.setIntakeRoller(-1);
-            intakeSubsystem.setIntakePosition(5.7);
-        }
-        else{
-            intakeSubsystem.setIntakeRoller(0);
-            intakeSubsystem.setIntakePosition(.6);
-        }
-        if (RightBumper.getAsBoolean()) {
-          intakeSubsystem.setIntakeRoller(1);
-         
-        }
+    Trigger LBumper = Constants.OperatorConstants.driverXbox.leftBumper();
+    Trigger AButton = Constants.OperatorConstants.driverXbox.a();
+    if (AButton.getAsBoolean()) {
+      intakeSubsystem.setIntakeRoller(-1);
+      intakeSubsystem.setIntakePosition(5.8);
+    }
+    else{
+      intakeSubsystem.setIntakeRoller(0);
+      intakeSubsystem.setIntakePosition(2);
+
+    }
+    if (LBumper.getAsBoolean()) {
+      isLocked = !isLocked;
+    }
+    if (isLocked) {
+      intakeSubsystem.setIntakePosition(0);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     intakeSubsystem.setIntakeRoller(0);
-    intakeSubsystem.setIntakePosition(.6);
+    intakeSubsystem.setIntakePosition(0);
   }
 
   // Returns true when the command should end.

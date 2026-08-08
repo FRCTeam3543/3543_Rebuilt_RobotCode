@@ -10,6 +10,7 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightHelpers;
 
 public class ShooterSubsystem extends SubsystemBase {
 
@@ -18,10 +19,12 @@ public class ShooterSubsystem extends SubsystemBase {
     private final SparkMax indexerMotor; 
     private SparkClosedLoopController shooter_pidController;
     private static final int shooterID = 12;
-    private static final int intakeID = 11;
-    private static final int indexID = 10;
+    private static final int intakeID = 10;
+    private static final int indexID = 11;
     private SparkMax shooterAngleMotor = new SparkMax( 9, MotorType.kBrushless);
+    private double prev = 0;
     
+    @SuppressWarnings("removal") // Fixes the 'deprecated' warnings
     public ShooterSubsystem() {
         shooterMotor = new SparkFlex(shooterID, MotorType.kBrushless);
         intakeMotor = new SparkMax(intakeID, MotorType.kBrushless);
@@ -39,7 +42,7 @@ public class ShooterSubsystem extends SubsystemBase {
         angleConfig.closedLoop.pid(0.15, 0.0, 0.05);
         angleConfig.softLimit.forwardSoftLimit(0)
                              .forwardSoftLimitEnabled(true)
-                             .reverseSoftLimit(-95.2)
+                             .reverseSoftLimit(-18.5)
                              .reverseSoftLimitEnabled(true);
         shooterMotor.configure(shooterConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         intakeMotor.configure(intakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -51,38 +54,73 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterAngleMotor.set(speed);
     }
 
+    public void setspeed(int rpm) {
+        shooter_pidController.setSetpoint(rpm, ControlType.kVelocity);
+    }
+
     public void shootLongRange(){
-        double targetRPM = 3450;
+        double targetRPM = 6000;
         shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity);
         intakeMotor.set(0.83);
-        indexerMotor.set(0.1);
+        indexerMotor.set(-1);
     }
     public void shootShortRange(){
-        double targetRPM = 2900;
+        double targetRPM = 3000;
         shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity);
         intakeMotor.set(0.83);
-        indexerMotor.set(0.1);
+        indexerMotor.set(-1);
     }
 
-    public void shooterON(){
-         double targetRPM = 3450;
+    private double calculate() {
+        // Coefficients calculated using a quartic regression in desmos
+        // D  |  RPM
+        // ---------
+        // 5  | 2900
+        // 6  | 3050
+        // 7  | 3200
+        // 8  | 3300
+        // 9  | 3400
+        // 10 | 3475
+        // 11 | 3550
+        // 15 | 4000
+        // 18 | 4500
+        double x;
+        double ty = LimelightHelpers.getTY("limelight") / 180 * Math.PI;
+        if (ty == 0) {
+            x = prev;
+        } else {
+            x = (44 - 37/3) / Math.tan(ty) / 12;
+            prev = x;
+        }
+        return -0.053862 * x * x * x * x + 3.27685 * x * x * x - 65.77493 * x * x + 630.18654 * x + 1011.83142;
+    }
+
+    public void spinup() {
+        shooter_pidController.setSetpoint(calculate(), ControlType.kVelocity);
+    }
+
+    public void shooterON(double targetRPM){
         shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity); 
     }
-
 
     public void shooterOFF(){
-         double targetRPM = 0;
-        shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity); 
+        double targetRPM = 0;
+        shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity);
     }
 
     public void indexerON(){
-        intakeMotor.set(0.83);
-        indexerMotor.set(0.1);
+        indexerMotor.set(-1);
+        intakeMotor.set(0.83); 
     }
 
     public void indexerOFF(){
         intakeMotor.set(0.0);
         indexerMotor.set(0.0);
+    }
+
+    public void reverseIndexer() {
+        indexerMotor.set(0.1);
+        intakeMotor.set(-0.83);
     }
 
     public void setPosition(double position){
@@ -99,8 +137,6 @@ public class ShooterSubsystem extends SubsystemBase {
         indexerMotor.set(0);
         intakeMotor.disable();
         shooterMotor.disable();
-    indexerMotor.disable();
-    
+    indexerMotor.disable(); 
     }
-    
 }

@@ -5,9 +5,15 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "Left Path Red"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "shooterON"
+            "name": "rotateTurretFullLeft"
           }
         },
         {
@@ -19,19 +25,19 @@
         {
           "type": "named",
           "data": {
-            "name": "indexerON"
+            "name": "shooterON"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 2.0
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "intakeMid"
+            "name": "indexerON"
           }
         },
         {
@@ -43,7 +49,13 @@
         {
           "type": "named",
           "data": {
-            "name": "indexerOFF"
+            "name": "intakeMid"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 4.0
           }
         },
         {
@@ -68,18 +80,6 @@
           "type": "named",
           "data": {
             "name": "intakeUp"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1e+21
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Stationary Path"
           }
         }
       ]
