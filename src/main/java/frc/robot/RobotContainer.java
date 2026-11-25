@@ -38,9 +38,9 @@ public class RobotContainer {
     SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
             () -> Constants.OperatorConstants.driverXbox.getLeftY() * -1,
             () -> Constants.OperatorConstants.driverXbox.getLeftX() * -1)
-            .withControllerRotationAxis(() -> Constants.OperatorConstants.driverXbox.getLeftTriggerAxis() * -1)
+            .withControllerRotationAxis(() -> Constants.OperatorConstants.driverXbox.getRightX() * -1)
             .deadband(OperatorConstants.DEADBAND)
-            .scaleTranslation(0.8)
+            .cubeTranslationControllerAxis(true)
             .allianceRelativeControl(false);
 
     SwerveInputStream driveDirectAngle = driveAngularVelocity.copy()
@@ -86,7 +86,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("shooterON",
                 Commands.runOnce(() -> shooterSubsystem.shooterON(6000), shooterSubsystem));
         NamedCommands.registerCommand("spinup", 
-                Commands.runOnce(() -> shooterSubsystem.setspeed(3000), shooterSubsystem));
+                Commands.runOnce(() -> shooterSubsystem.setspeed(3150), shooterSubsystem));
         NamedCommands.registerCommand("shooterOFF",
                 Commands.runOnce(() -> shooterSubsystem.shooterOFF(), shooterSubsystem));
         NamedCommands.registerCommand("indexerON",

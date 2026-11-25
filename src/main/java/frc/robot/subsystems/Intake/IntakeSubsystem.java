@@ -29,4 +29,8 @@ public class IntakeSubsystem extends SubsystemBase {
   public void setIntakeRoller (double speed) {
     intakeRoller.set(speed);
   }
+
+  public double getIntakePosition() {
+    return intakeFrontRight.getEncoder().getPosition();
+  }
 }

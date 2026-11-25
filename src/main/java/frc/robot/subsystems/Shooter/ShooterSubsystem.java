@@ -39,7 +39,7 @@ public class ShooterSubsystem extends SubsystemBase {
         
         intakeConfig.inverted(true);
         indexerConfig.inverted(true);
-        angleConfig.closedLoop.pid(0.15, 0.0, 0.05);
+        angleConfig.closedLoop.pid(0.5, 0.0, 0.0);
         angleConfig.softLimit.forwardSoftLimit(0)
                              .forwardSoftLimitEnabled(true)
                              .reverseSoftLimit(-18.5)
@@ -65,7 +65,7 @@ public class ShooterSubsystem extends SubsystemBase {
         indexerMotor.set(-1);
     }
     public void shootShortRange(){
-        double targetRPM = 3000;
+        double targetRPM = 3150;
         shooter_pidController.setSetpoint(targetRPM, ControlType.kVelocity);
         intakeMotor.set(0.83);
         indexerMotor.set(-1);
@@ -120,11 +120,15 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public void reverseIndexer() {
         indexerMotor.set(0.1);
-        intakeMotor.set(-0.83);
+        intakeMotor.set(0.0);
     }
 
     public void setPosition(double position){
         shooterAngleMotor.getClosedLoopController().setSetpoint(position, ControlType.kPosition);
+    }
+
+    public double getPosition() {
+        return shooterAngleMotor.getEncoder().getPosition();
     }
     
     public void OuttakeIndex(){
