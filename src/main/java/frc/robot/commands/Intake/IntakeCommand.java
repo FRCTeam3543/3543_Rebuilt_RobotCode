@@ -5,14 +5,12 @@
 package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake.IntakeSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class IntakeCommand extends Command {
   private final IntakeSubsystem intakeSubsystem;
-  private boolean isLocked = false;
 
   public IntakeCommand(IntakeSubsystem intakeSubsystem) {
     this.intakeSubsystem = intakeSubsystem;
@@ -27,8 +25,6 @@ public class IntakeCommand extends Command {
   @Override
   public void execute() {
     double leftTrigger = Constants.OperatorConstants.driverXbox.getLeftTriggerAxis();
-    Trigger YButton = Constants.OperatorConstants.operatorXbox.y();
-
     if (leftTrigger > 0.2) {
       intakeSubsystem.setIntakePosition(6.0);
       if (intakeSubsystem.getIntakePosition() >= 5.2) {
@@ -38,12 +34,6 @@ public class IntakeCommand extends Command {
     else{
       intakeSubsystem.setIntakeRoller(0);
       intakeSubsystem.setIntakePosition(2);
-    }
-    if (YButton.getAsBoolean()) {
-      isLocked = true;
-    }
-    if (isLocked) {
-      intakeSubsystem.setIntakePosition(0);
     }
   }
 

@@ -21,7 +21,7 @@ public class ShooterSubsystem extends SubsystemBase {
     private static final int shooterID = 12;
     private static final int intakeID = 10;
     private static final int indexID = 11;
-    private SparkMax shooterAngleMotor = new SparkMax( 9, MotorType.kBrushless);
+    private SparkMax shooterAngleMotor = new SparkMax(9, MotorType.kBrushless);
     private double prev = 0;
     
     @SuppressWarnings("removal") // Fixes the 'deprecated' warnings

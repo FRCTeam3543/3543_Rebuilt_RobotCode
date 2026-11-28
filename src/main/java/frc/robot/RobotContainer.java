@@ -76,7 +76,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("setIntakeOff",
                 Commands.runOnce(() -> intakeSubsystem.setIntakeRoller(0), intakeSubsystem));
         NamedCommands.registerCommand("rotateTurretFullLeft",
-                Commands.runOnce(() -> shooterSubsystem.setPosition(-16), shooterSubsystem));
+                Commands.runOnce(() -> shooterSubsystem.setPosition(-18.5), shooterSubsystem));
         NamedCommands.registerCommand("angleTurret", 
                 Commands.runOnce(() -> shooterSubsystem.setPosition(-10), shooterSubsystem));
         NamedCommands.registerCommand("centerTurret", 

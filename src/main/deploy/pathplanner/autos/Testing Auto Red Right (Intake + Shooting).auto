@@ -7,19 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left Path Red"
+            "pathName": "Test Path"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "rotateTurretFullLeft"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
+            "name": "centerTurret"
           }
         },
         {
@@ -31,7 +25,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.0
+            "waitTime": 0.5
           }
         },
         {
@@ -43,25 +37,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 5.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeMid"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 4.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shooterOFF"
+            "waitTime": 10.0
           }
         },
         {
@@ -73,13 +49,49 @@
         {
           "type": "named",
           "data": {
-            "name": "zeroTurret"
+            "name": "shooterOFF"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Test Path 2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "intakeUp"
+            "name": "intakeDown"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "setIntakeOn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Test Path 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "setIntakeOff"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeMid"
           }
         }
       ]

@@ -5,27 +5,21 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Middle Path Red"
+            "name": "rotateTurretFullLeft"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "spinup"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "angleTurret"
+            "name": "shooterON"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 1.0
           }
         },
         {
@@ -50,12 +44,6 @@
           "type": "named",
           "data": {
             "name": "shooterOFF"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "zeroTurret"
           }
         }
       ]

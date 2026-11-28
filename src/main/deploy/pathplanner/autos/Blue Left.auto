@@ -5,9 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Right Path Red"
+            "name": "rotateTurretFullLeft"
           }
         },
         {
@@ -31,19 +31,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeMid"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 5.0
+            "waitTime": 10.0
           }
         },
         {
@@ -57,29 +45,11 @@
           "data": {
             "name": "shooterOFF"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "indexerOFF"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "zeroTurret"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeUp"
-          }
         }
       ]
     }
   },
-  "resetOdom": true,
+  "resetOdom": false,
   "folder": null,
   "choreoAuto": false
 }
